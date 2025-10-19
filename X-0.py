@@ -2,9 +2,9 @@ from tkinter import *
 
 window = Tk()
 
-a = [8, 8, 8,
-     8, 8, 8,
-     8, 8, 8] #список, в котором будут сохраняться значения крестиков и ноликов
+a = [8, 9, 10,
+     7, 6, 5,
+     2, 3, 4] #список, в котором будут сохраняться значения крестиков и ноликов
 
 n = 1 #переменная, по которой мы определяем чей сейчас ход (Х = 1, 0 = 0)
 
@@ -24,19 +24,34 @@ def restart_window():
     for i in btn:
          i.config(text="")
          i.config(state="active")
-    a = [8, 8, 8,
-         8, 8, 8,
-         8, 8, 8]
+    a = [8, 9, 10,
+         7, 6, 5,
+         2, 3, 4]
     n = 1
     label.config(text="Сейчас ход X!")
     but_restart.place_forget()
     
+def x_win():
+    but_restart.place(x=310, y=20)
+    label.config(text="X выйграли!")
+    for i in btn:
+         i.config(state="disabled")
 
+def O_win():
+    but_restart.place(x=310, y=20)
+    label.config(text="0 выйграли!")
+    for i in btn:
+         i.config(state="disabled")
 
-def test(): #функция, которая проверяет все ли клетки свободны
-    if set(a) == {0, 1}:
-            label.config(text="    Ничья!")
-            but_restart.place(x=310, y=20)
+def test(): #функция, реализующая три исхода игры
+    if a[0] == a[1] == a[2] == 1 or a[3] == a[4] == a[5] == 1 or a[6] == a[7] == a[8] == 1 or a[0] == a[3] == a[6] == 1 or a[1] == a[4] == a[7] == 1 or a[2] == a[5] == a[8] == 1 or a[0] == a[4] == a[8] == 1 or a[2] == a[4] == a[6] == 1:
+        x_win()
+    elif a[0] == a[1] == a[2] == 0 or a[3] == a[4] == a[5] == 0 or a[6] == a[7] == a[8] == 0 or a[0] == a[3] == a[6] == 0 or a[1] == a[4] == a[7] == 0 or a[2] == a[5] == a[8] == 0 or a[0] == a[4] == a[8] == 0 or a[2] == a[4] == a[6] == 0:
+        O_win()
+    elif set(a) == {0, 1}:
+        label.config(text="   Ничья!")
+        but_restart.place(x=310, y=20)
+
 
 
 def button_clicked(k): #основная функция игры
