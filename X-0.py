@@ -6,6 +6,7 @@ a = [8, 8, 8,
      8, 8, 8,
      8, 8, 8] #список, в котором будут сохраняться значения крестиков и ноликов
 
+n = 1 #переменная, по которой мы определяем чей сейчас ход (Х = 1, 0 = 0)
 
 window.geometry("380x450")
 window.title("Крестики-нолики")
@@ -18,14 +19,25 @@ label = Label(text="Сейчас ход Х!",
 label.place(x=55, y=20)
 
 def restart_window():
-    but.config(text="")
+    global a
+    global n
+    for i in btn:
+         i.config(text="")
+         i.config(state="active")
+    a = [8, 8, 8,
+         8, 8, 8,
+         8, 8, 8]
+    n = 1
+    label.config(text="Сейчас ход X!")
+    but_restart.place_forget()
+    
+
 
 def test(): #функция, которая проверяет все ли клетки свободны
     if set(a) == {0, 1}:
             label.config(text="    Ничья!")
-            #but_restart.place(x=310, y=20)
+            but_restart.place(x=310, y=20)
 
-n = 1 #переменная, по которой мы определяем чей сейчас ход (Х = 1, 0 = 0)
 
 def button_clicked(k): #основная функция игры
     global n
